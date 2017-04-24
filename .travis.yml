@@ -10,4 +10,4 @@ install:
   - ./deploy.sh
 
 script:
-  - true
+  - ./test.sh
