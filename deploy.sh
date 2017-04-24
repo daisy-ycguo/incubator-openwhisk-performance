@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # common docker setup
 sudo gpasswd -a travis docker
 sudo -E bash -c 'echo '\''DOCKER_OPTS="-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock --storage-driver=overlay --userns-remap=default"'\'' > /etc/default/docker'

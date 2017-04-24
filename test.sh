@@ -1,9 +1,10 @@
 #!/bin/sh
 set -e
 
+host=$1
+credentials=$2
+
 action="noop"
-credentials="$(cat openwhisk/ansible/files/auth.guest)"
-host="172.17.0.1:10001"
 
 # create a noop action
 echo "Creating noop action"
@@ -14,4 +15,4 @@ echo "Running noop action once to assert an intact system"
 curl -u "$credentials" "$host/api/v1/namespaces/_/actions/$action?blocking=true" -XPOST
 
 # run performance harness
-docker run --rm markusthoemmes/loadtest loadtest -n 10000 -H "Authorization: basic $(echo $credentials | base64 -w 0)" "http://$host/api/v1/namespaces/_/actions/$action?blocking=true" -m POST
+docker run --rm markusthoemmes/loadtest loadtest -n 10000 -k -m POST -H "Authorization: basic $(echo $credentials | base64 -w 0)" "$host/api/v1/namespaces/_/actions/$action?blocking=true"
