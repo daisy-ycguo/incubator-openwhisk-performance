@@ -15,3 +15,12 @@ The latency test determines the end-to-end latency a user experiences when doing
 - 1 HTTP request at a time (concurrency: 1)
 - 10.000 samples with a single user
 - noop action
+
+**Note:** The throughput number has a 100% correlation with the latency in this case. This test does not serve to determine the maximum throughput of the system.
+
+## Throughput test
+The throughput test determines the maximum throughput a user can get out of the system while using a single action. The action used again is a noop, so the numbers are plain OpenWhisk overhead. Note that the throughput does not directly correlate to end-to-end latency here, as the system does more processing in the background as it shows to the user in a blocking invocation.
+
+- 4 HTTP requests at a time (concurrency: 4) (basically CPU cores * 2 to exploit some buffering)
+- 10.000 samples with a single user
+- noop action
