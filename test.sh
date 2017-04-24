@@ -11,4 +11,4 @@ echo "Running noop action once to assert an intact system"
 curl -u "$(cat openwhisk/ansible/files/auth.guest)" "172.17.0.1:10001/api/v1/namespaces/_/actions/$action?blocking=true" -XPOST
 
 # run performance harness
-ab -n 1000 -m POST -k -A "$(cat openwhisk/ansible/files/auth.guest)" "172.17.0.1:10001/api/v1/namespaces/_/actions/$action?blocking=true"
+docker run --rm markusthoemmes/loadtest loadtest -H "Authorization: basic MjNiYzQ2YjEtNzFmNi00ZWQ1LThjNTQtODE2YWE0ZjhjNTAyOjEyM3pPM3haQ0xyTU42djJCS0sxZFhZRnBYbFBrY2NPRnFtMTJDZEFzTWdSVTRWck5aOWx5R1ZDR3VNREdJd1A=" "http://172.17.0.1:10001/api/v1/namespaces/_/actions/$action?blocking=true" -m POST -n 1000
