@@ -1,0 +1,13 @@
+sudo: required
+language: java
+services:
+  - docker
+
+env:
+  - TERM=dumb
+
+install:
+  - git clone https://github.com/openwhisk/openwhisk.git
+
+script:
+  - true
