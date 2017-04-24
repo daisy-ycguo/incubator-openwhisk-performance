@@ -1,6 +1,11 @@
 #!/bin/sh
 
-# checkout OpenWhisk latest
+# common docker setup
+sudo gpasswd -a travis docker
+sudo -E bash -c 'echo '\''DOCKER_OPTS="-H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock --storage-driver=overlay --userns-remap=default"'\'' > /etc/default/docker'
+sudo service docker restart
+
+# checkout openwhisk latest
 git clone --depth 1 https://github.com/openwhisk/openwhisk.git
 
 # install ansible
