@@ -12,12 +12,15 @@ git clone --depth 1 https://github.com/openwhisk/openwhisk.git
 pip install --user ansible==2.1.2.0
 
 cd openwhisk/ansible
-ANSIBLE_CMD="ansible-playbook -i environments/local -e docker_image_prefix=openwhisk"
+ANSIBLE_CMD="ansible-playbook -i environments/local -e docker_image_prefix=openwhisk -e docker_registry=docker.io/"
 
 $ANSIBLE_CMD setup.yml
 $ANSIBLE_CMD prereq.yml
 $ANSIBLE_CMD couchdb.yml
 $ANSIBLE_CMD initdb.yml
-$ANSIBLE_CMD apigateway.yml
 $ANSIBLE_CMD wipe.yml
-$ANSIBLE_CMD openwhisk.yml
+
+$ANSIBLE_CMD consul.yml
+$ANSIBLE_CMD kafka.yml
+$ANSIBLE_CMD controller.yml
+$ANSIBLE_CMD invoker.yml
