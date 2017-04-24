@@ -7,7 +7,6 @@ env:
   - TERM=dumb
 
 install:
-  - git clone --depth 1 https://github.com/openwhisk/openwhisk.git
   - ./deploy.sh
 
 script:
