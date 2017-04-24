@@ -10,4 +10,4 @@ install:
   - ./deploy.sh
 
 script:
-  - ./test.sh "http://172.17.0.1:10001" "$(cat openwhisk/ansible/files/auth.guest)"
+  - ./test.sh "http://172.17.0.1:10001" "$(cat openwhisk/ansible/files/auth.guest)" 4
