@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+currentDir="$(dirname "$0")"
 
 # Host to use. Needs to include the protocol.
 host=$1
@@ -12,7 +13,7 @@ concurrency=$3
 samples=${4:-10000}
 
 action="noopThroughput"
-./create.sh "$host" "$credentials" "$action"
+"$currentDir/create.sh" "$host" "$credentials" "$action"
 
 # run throughput tests
 encodedAuth=$(echo "$credentials" | base64 -w 0)
