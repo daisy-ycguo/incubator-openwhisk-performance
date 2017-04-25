@@ -30,14 +30,4 @@ The throughput test determines the maximum throughput a user can get out of the 
 - noop action
 
 ## Running the suites yourself
-To run the suites against your own system (or any other OpenWhisk deployment really), simply use the `test.sh` script.
-
-It takes a couple of parameters, defined as follows:
-
-```
-> test.sh HOST CREDENTIALS CONCURRENCY_LEVEL
-```
-
-- **HOST**: The host to reach OpenWhisk. Should include the protocol (`http`/`https`) and the port if applicable.
-- **CREDENTIALS**: Credentials for OpenWhisk in USER:PASS form.
-- **CONCURRENCY_LEVEL**: Concurrency level for the loadtest. This number should be a multiple of the number of CPU cores all invoker machines have in total.
+To run the suites against your own system (or any other OpenWhisk deployment really), simply use the repsective script in `/tests` script. Their parameters are defined inline in the respective file.
