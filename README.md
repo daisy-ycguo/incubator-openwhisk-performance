@@ -6,7 +6,7 @@ A few simple but efficient performance test suites for Apache OpenWhisk. Determi
 - Limits are set to 999999 each, for the test's load that means: No throttling at all.
 - The deployment uses a docker setup as proposed by the OpenWhisk development team: `overlay` driver and HTTP API enabled via a UNIX port.
 
-The load is driven by the beautiful [`loadtest`](https://www.npmjs.com/package/loadtest) module.
+The load is driven by either the beautiful [`loadtest`](https://www.npmjs.com/package/loadtest) module or the blazingly fast [`wrk`](https://github.com/wg/wrk).
 
 ### Travis' machine setup
 The [machine provided by Travis](https://docs.travis-ci.com/user/ci-environment/#Virtualization-environments) has ~2 CPU cores (likely shared through virtualization) and 7.5GB memory.

@@ -9,12 +9,22 @@ credentials=$2
 # concurrency level of the throughput test: How many requests should
 # open in parallel.
 concurrency=$3
-# How many samples to create by the test. Default: 10000
-samples=${4:-10000}
+# How many threads to utilize, directly correlates to the number
+# of CPU cores
+threads=${4:-4}
+# How long to run the test
+duration=${5:-30s}
 
 action="noopThroughput"
 "$currentDir/create.sh" "$host" "$credentials" "$action"
 
 # run throughput tests
-encodedAuth=$(echo "$credentials" | base64 -w 0)
-docker run --rm markusthoemmes/loadtest loadtest -n "$samples" -c "$concurrency" -k -m POST -H "Authorization: basic $encodedAuth" "$host/api/v1/namespaces/_/actions/$action?blocking=true"
+encodedAuth=$(echo "$credentials" | base64 -w0)
+docker run --pid=host --userns=host --rm -v $(pwd):/data williamyeh/wrk \
+  --threads "$threads" \
+  --connections "$concurrency" \
+  --duration "$duration" \
+  --header "Authorization: basic $encodedAuth" \
+  "$host/api/v1/namespaces/_/actions/$action?blocking=true" \
+  --latency \
+  --script post.lua
