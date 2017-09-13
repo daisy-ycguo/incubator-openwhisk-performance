@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-currentDir="$(dirname "$0")"
+currentDir="$(cd "$(dirname "$0")"; pwd)"
 
 # Host to use. Needs to include the protocol.
 host=$1
@@ -20,11 +20,12 @@ action="noopThroughput"
 
 # run throughput tests
 encodedAuth=$(echo "$credentials" | base64 | tr -d '\n')
-docker run --pid=host --userns=host --rm -v "$(pwd)":/data williamyeh/wrk \
+docker run --pid=host --userns=host --rm -v "$currentDir":/data williamyeh/wrk \
   --threads "$threads" \
   --connections "$concurrency" \
   --duration "$duration" \
   --header "Authorization: basic $encodedAuth" \
   "$host/api/v1/namespaces/_/actions/$action?blocking=true" \
   --latency \
+  --timeout 10s \
   --script post.lua
