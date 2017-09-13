@@ -23,7 +23,6 @@ $ANSIBLE_CMD couchdb.yml
 $ANSIBLE_CMD initdb.yml
 $ANSIBLE_CMD wipe.yml
 
-$ANSIBLE_CMD consul.yml
 $ANSIBLE_CMD kafka.yml
 $ANSIBLE_CMD controller.yml
 $ANSIBLE_CMD invoker.yml
