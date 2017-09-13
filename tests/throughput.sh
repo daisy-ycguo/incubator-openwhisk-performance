@@ -19,8 +19,8 @@ action="noopThroughput"
 "$currentDir/create.sh" "$host" "$credentials" "$action"
 
 # run throughput tests
-encodedAuth=$(echo "$credentials" | base64 -w0)
-docker run --pid=host --userns=host --rm -v $(pwd):/data williamyeh/wrk \
+encodedAuth=$(echo "$credentials" | base64 | tr -d '\n')
+docker run --pid=host --userns=host --rm -v "$(pwd)":/data williamyeh/wrk \
   --threads "$threads" \
   --connections "$concurrency" \
   --duration "$duration" \
