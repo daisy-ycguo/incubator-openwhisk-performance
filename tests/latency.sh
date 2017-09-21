@@ -13,5 +13,10 @@ action="noopLatency"
 "$currentDir/create.sh" "$host" "$credentials" "$action"
 
 # run latency tests
-encodedAuth=$(echo "$credentials" | base64 -w 0)
-docker run --rm markusthoemmes/loadtest loadtest -n "$samples" -k -m POST -H "Authorization: basic $encodedAuth" "$host/api/v1/namespaces/_/actions/$action?blocking=true"
+encodedAuth=$(echo "$credentials" | base64 | tr -d '\n')
+docker run --rm markusthoemmes/loadtest loadtest \
+  -n "$samples" \
+  -k \
+  -m POST \
+  -H "Authorization: basic $encodedAuth" \
+  "$host/api/v1/namespaces/_/actions/$action?blocking=true"
