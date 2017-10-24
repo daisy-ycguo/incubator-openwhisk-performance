@@ -8,19 +8,19 @@ host=$1
 credentials=$2
 # concurrency level of the throughput test: How many requests should
 # open in parallel.
-concurrency=$3
+concurrency=${3:-128}
 # How many threads to utilize, directly correlates to the number
 # of CPU cores
 threads=${4:-4}
 # How long to run the test
-duration=${5:-30s}
+duration=${5:-10s}
 
-action="noopThroughput"
-"$currentDir/create.sh" "$host" "$credentials" "$action"
+action="noop"
+#"$currentDir/create.sh" "$host" "$credentials" "$action"
 
 # run throughput tests
 encodedAuth=$(echo "$credentials" | base64 | tr -d '\n')
-docker run --pid=host --userns=host --rm -v "$currentDir":/data williamyeh/wrk \
+sudo docker run --pid=host --userns=host --rm -v "$currentDir":/data williamyeh/wrk \
   --threads "$threads" \
   --connections "$concurrency" \
   --duration "$duration" \
