@@ -4,7 +4,7 @@ import java.util.TimerTask;
 import java.lang.Integer;
 
 public class FixedTime {
-	static JsonObject myresp = null;
+	static boolean stop = false;
 
 	public static JsonObject main(JsonObject args) {
 		String timeout = "1";
@@ -18,13 +18,12 @@ public class FixedTime {
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				myresp = new JsonObject();
 				System.out.println("time out!");
-				myresp.addProperty("msg", "time out!");
+				stop = true;
 			}
 		}, 60000 * Integer.parseInt(timeout));
 
-		while (myresp == null) {
+		while (stop == false) {
 			System.out.println("I’m busy");
 			try {
 				Thread.sleep(100 * Integer.parseInt(interval));
@@ -34,6 +33,8 @@ public class FixedTime {
 		}
 		timer.cancel();
 
-		return myresp;
+		JsonObject response = new JsonObject();
+		response.addProperty("greeting", "Hello !");
+		return response;
 	}
 }
