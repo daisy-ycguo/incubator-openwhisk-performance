@@ -5,15 +5,20 @@ function main(param) {
     
     console.log("timeout="+timeout);
     console.log("interval="+interval);
-    /*var timeoutobj = setTimeout(function() {
-        clearInterval(intervalobj);
-        console.log("time out");
-        return {};
-    }, 60000*parseInt(timeout));*/
 
-    var intervalobj = setInterval(function() {
-        console.log("I'm busy.");
-    }, 10*parseInt(interval));
+    var promise = new Promise(function(resolve, reject) {
+        var timeoutobj = setTimeout(function() {
+            clearInterval(intervalobj);
+            console.log("time out");
+            resolve({message: 'time out!'});
+        }, 60000*parseInt(timeout));
+
+        var intervalobj = setInterval(function() {
+            console.log("I'm busy.");
+        }, 100*parseInt(interval));
+    });
+
+    return promise;
 
 }
 
