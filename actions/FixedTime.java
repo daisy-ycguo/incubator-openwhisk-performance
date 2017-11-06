@@ -21,7 +21,7 @@ public class FixedTime {
 				System.out.println("time out!");
 				stop = true;
 			}
-		}, 60000 * Integer.parseInt(timeout));
+		}, 1000 * Integer.parseInt(timeout));
 
 		while (stop == false) {
 			System.out.println("I’m busy");
@@ -34,7 +34,7 @@ public class FixedTime {
 		timer.cancel();
 
 		JsonObject response = new JsonObject();
-		response.addProperty("greeting", "Hello !");
+		response.addProperty("payload", "Success!");
 		return response;
 	}
 }
